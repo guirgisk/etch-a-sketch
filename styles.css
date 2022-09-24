@@ -1,0 +1,23 @@
+:root {
+    --num-cols: 1;
+    --num-rows: 1;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(var(--num-cols), 1fr);
+    grid-template-rows: repeat(var(--num-rows), 1fr);
+    background-color: black;
+    gap: 1px;
+    margin: 200px;
+    padding: 1px;
+}
+
+.cell {
+    padding: 1em;
+    background-color: white;
+  }
+
+.filled {
+    background-color: black !important;
+}
