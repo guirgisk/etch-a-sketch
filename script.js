@@ -13,12 +13,14 @@ function makeGrid(cols, rows) {
 makeGrid(16,16);
 
 let currentColor = "black";
-const colorPallet = ["black", "red", "yellow", "green", "teal", "blue", "purple"]
-const randColor = document.querySelector('#randColor');
-randColor.addEventListener('click', () => {
+const colorPallet = ["black", "red", "yellow", "green", "teal", "blue", "purple"];
+
+function getColor() {
     let x = Math.floor(Math.random() * 7);
     currentColor = colorPallet[x];
-})
+}
+const randColor = document.querySelector('#randColor');
+randColor.addEventListener('click', getColor);
 
 const draw = document.querySelectorAll('.cell');
 
@@ -37,3 +39,14 @@ resetCol.addEventListener('click', () => {
     })
 })
 
+function rainbowBrush() {
+    draw.forEach((element, key) => {
+        element.addEventListener('mouseover',()=> {
+            getColor();
+            element.setAttribute('id',`cell-${key}`);
+            document.getElementById(`cell-${key}`).style.backgroundColor = currentColor;
+        })
+    })
+}
+const rainbow = document.getElementById('Rainbow');
+rainbow.addEventListener('click', rainbowBrush())
