@@ -12,17 +12,28 @@ function makeGrid(cols, rows) {
 
 makeGrid(16,16);
 
+let currentColor = "black";
+const colorPallet = ["black", "red", "yellow", "green", "teal", "blue", "purple"]
+const randColor = document.querySelector('#randColor');
+randColor.addEventListener('click', () => {
+    let x = Math.floor(Math.random() * 7);
+    currentColor = colorPallet[x];
+})
+
 const draw = document.querySelectorAll('.cell');
 
 draw.forEach((element, key) => {
     element.addEventListener('mouseover',()=> {
-        element.classList.add('filled');
+        element.setAttribute('id',`cell-${key}`);
+        document.getElementById(`cell-${key}`).style.backgroundColor = currentColor;
     })
 })
 
-const btn = document.querySelector('#btn');
-btn,addEventListener('click', () => {
+const resetCol = document.querySelector('#reset');
+resetCol.addEventListener('click', () => {
     draw.forEach((e, key) => {
-        e.classList.remove('filled');
+        //e.removeAttribute('id');
+        e.style.backgroundColor = 'white';
     })
 })
+
