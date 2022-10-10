@@ -19,28 +19,40 @@ function getColor() {
     let x = Math.floor(Math.random() * 7);
     currentColor = colorPallet[x];
 }
-const randColor = document.querySelector('#randColor');
-randColor.addEventListener('click', getColor);
 
-const draw = document.querySelectorAll('.cell');
+function getCells() {
+    return document.querySelectorAll('.cell');
+}
 
-draw.forEach((element, key) => {
-    element.addEventListener('mouseover',()=> {
-        element.setAttribute('id',`cell-${key}`);
-        document.getElementById(`cell-${key}`).style.backgroundColor = currentColor;
+
+function getColorReset() {
+    let x = Math.floor(Math.random() * 7);
+    currentColor = colorPallet[x];
+    getCells().forEach((element, key) => {
+        var new_element = element.cloneNode(true);
+        element.parentNode.replaceChild(new_element, element);
+        new_element.addEventListener('mouseover',()=> {
+            new_element.setAttribute('id',`cell-${key}`);
+            document.getElementById(`cell-${key}`).style.backgroundColor = currentColor;
+        })
     })
-})
+    
+}
+
+const randColor = document.querySelector('#randColor');
+randColor.addEventListener('click', getColorReset);
+
 
 const resetCol = document.querySelector('#reset');
 resetCol.addEventListener('click', () => {
-    draw.forEach((e, key) => {
+    getCells().forEach((e, key) => {
         //e.removeAttribute('id');
         e.style.backgroundColor = 'white';
     })
 })
 
 function rainbowBrush() {
-    draw.forEach((element, key) => {
+    getCells().forEach((element, key) => {
         element.addEventListener('mouseover',()=> {
             getColor();
             element.setAttribute('id',`cell-${key}`);
